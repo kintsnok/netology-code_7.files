@@ -29,7 +29,23 @@ def read_cook_book(file_path):
             dish_dict[dish_name] = ing_list
     return dish_dict
 
-a_cook_book = read_cook_book('recipes.txt')
-                              
+def get_shop_list_by_dishes(dishes, person_count):
+    a_cook_book = read_cook_book('recipes.txt')
+    ing_dict = {}
+    for dish in dishes:
+        ings_list = a_cook_book[dish]
+        for ing in ings_list:
+            ing_name = ing['ingredient_name']
+            if ing_dict.__contains__(ing_name):
+                ing_dict[ing_name]['quantity'] += ing['quantity'] * person_count
+            else:
+                ing_dict[ing_name] = {
+                    'measure': ing['measure'],
+                    'quantity' : ing['quantity'] * person_count
+                    }
+    return ing_dict
 
-pprint(a_cook_book, width=120)
+
+a_list = get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+
+pprint(a_list, width=160)
