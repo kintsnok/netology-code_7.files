@@ -1,4 +1,4 @@
-#import os
+import os
 from pprint import pprint
 
 # >>> with open('dog_breeds.txt', 'r') as reader:
@@ -46,6 +46,35 @@ def get_shop_list_by_dishes(dishes, person_count):
     return ing_dict
 
 
-a_list = get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+def sorted_merge(sorted_dir_path, merged_file_path):
+    BASE_DIR = sorted_dir_path
+    
+    files_info = []
+    try:
+        for file_name in os.listdir(BASE_DIR):
+            file_path = os.path.join(BASE_DIR, file_name)
+            with open(file_path, encoding='utf-8') as f:
+                files_info.append( [file_name, len(f.readlines())] )
+    except:
+        return
 
-pprint(a_list, width=160)
+    files_info.sort(key=lambda x: x[1])
+
+    with open(merged_file_path, 'w') as mf:
+        for file_info in files_info:
+            file_path = os.path.join(BASE_DIR, file_info[0])
+            with open(file_path, encoding='utf-8') as f:
+                mf.write(file_info[0] + '\n')
+                mf.write(str(file_info[1]) + '\n')
+                text = f.read()
+                mf.write(text)
+                if len(text) > 0 and text[-1] != '\n':
+                    mf.write('\n')
+
+
+sorted_dir_path = os.path.join(os.getcwd(), 'sorted')
+merged_file_path = os.path.join(os.getcwd(), 'merged.txt')
+sorted_merge(sorted_dir_path, merged_file_path)
+with open(merged_file_path, 'r') as mf:
+    print(mf.read())
+os.remove(merged_file_path)
