@@ -13,11 +13,18 @@ def read_cook_book(file_path):
     dish_dict = {}
     with open(file_path, encoding='utf-8') as f:
         for line in f:
+            # получение названия блюда
             line = line.strip('\n')
             if len(line) == 0:
                 continue
             dish_name = line
-            n = int(f.readline().strip('\n'))
+            # получение количества ингредиентов
+            n = 0
+            try:
+                n = int(f.readline().strip('\n'))
+            except:
+                continue
+            # получение списка ингредиентов
             ing_list = []
             for i in range(0, n):
                 ingredient = {}
