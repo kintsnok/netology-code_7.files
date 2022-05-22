@@ -14,14 +14,14 @@ def read_cook_book(file_path):
     with open(file_path, encoding='utf-8') as f:
         for line in f:
             # получение названия блюда
-            line = line.strip('\n')
+            line = line.strip()
             if len(line) == 0:
                 continue
             dish_name = line
             # получение количества ингредиентов
             n = 0
             try:
-                n = int(f.readline().strip('\n'))
+                n = int(f.readline().strip())
             except:
                 continue
             # получение списка ингредиентов
