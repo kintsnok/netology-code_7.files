@@ -47,7 +47,7 @@ def get_shop_list_by_dishes(dishes, person_count):
         ings_list = a_cook_book[dish]
         for ing in ings_list:
             ing_name = ing['ingredient_name']
-            if ing_dict.__contains__(ing_name):
+            if ing_name in ing_dict:
                 ing_dict[ing_name]['quantity'] += ing['quantity'] * person_count
             else:
                 ing_dict[ing_name] = {
